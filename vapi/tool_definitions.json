@@ -1,0 +1,130 @@
+[
+  {
+    "name": "verify_customer",
+    "description": "Verifies the customer's identity before any loan, EMI, overdue amount, debt, or payment information is disclosed.",
+    "method": "POST",
+    "path": "/verify-customer",
+    "request": {
+      "type": "object",
+      "properties": {
+        "customer_name": {
+          "type": "string",
+          "description": "Full name of the customer being verified"
+        },
+        "verification_code": {
+          "type": "string",
+          "description": "Four-digit verification code provided by the customer"
+        }
+      },
+      "required": [
+        "customer_name",
+        "verification_code"
+      ]
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "verified": {
+          "type": "boolean"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  {
+    "name": "log_promise_to_pay",
+    "description": "Records a customer's promise to pay after the verified customer agrees to make the overdue EMI payment on a specific date.",
+    "method": "POST",
+    "path": "/log-promise-to-pay",
+    "request": {
+      "type": "object",
+      "properties": {
+        "customer_id": {
+          "type": "string",
+          "description": "Verified customer ID"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount the customer promises to pay"
+        },
+        "payment_date": {
+          "type": "string",
+          "description": "Date the customer promises to make the payment"
+        }
+      },
+      "required": [
+        "customer_id",
+        "amount",
+        "payment_date"
+      ]
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "payment_date": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  {
+    "name": "send_payment_link",
+    "description": "Generates a mock payment link for the verified customer after they agree to make the overdue payment.",
+    "method": "POST",
+    "path": "/send-payment-link",
+    "request": {
+      "type": "object",
+      "properties": {
+        "customer_id": {
+          "type": "string",
+          "description": "Verified customer ID"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Payment amount for which the link is generated"
+        }
+      },
+      "required": [
+        "customer_id",
+        "amount"
+      ]
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "payment_link": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+]
